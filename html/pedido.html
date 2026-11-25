@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurante El Inge - Haz tu Pedido</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+    <header class="encabezado">
+        <div class="logo">
+            <h2><span>Restaurante El Inge</span></h2>
+        </div>
+        <nav class="menu">
+            <a href="index.html">Inicio</a>
+            <a href="catalogo.html">Catálogo</a>
+            <a href="pedido.html" class="activo">Hacer Pedido</a>
+        </nav>
+    </header>
+
+    <div class="contenedor">
+        <h1>Selecciona tus Platillos y Bebidas</h1>
+
+        <div class="contenedor-pedido">
+            <div class="columna">
+                <h2>Alimentos</h2>
+                <ul id="lista-alimentos">
+                    <!-- Se llenará con JavaScript -->
+                </ul>
+            </div>
+            <div class="columna">
+                <h2>Bebidas</h2>
+                <ul id="lista-bebidas">
+                    <!-- Se llenará con JavaScript -->
+                </ul>
+            </div>
+        </div>
+
+        <div class="seccion-ticket">
+            <div class="ticket">
+                <h2 style="color:black; border-color:black; text-align:center;">Tu Ticket</h2>
+                <ul id="detalle-ticket">
+                    <li><i>No hay artículos seleccionados</i></li>
+                </ul>
+                <div class="total">Total: $<span id="total-precio">0.00</span></div>
+
+                <button class="vaciar-btn" onclick="limpiarTicket()">Vaciar Cuenta</button>
+                <button class="btn-pago" onclick="abrirModalPago()">PROCEDER AL PAGO</button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="clear"></div>
+
+
+    <!-- --- MODAL 1: DATOS CLIENTE Y PAGO SIMULADO --- -->
+    <div id="modal-pago" class="modal">
+        <div class="contenido-modal">
+            <span class="cerrar-modal" onclick="cerrarModalPago()">&times;</span>
+            <h2>Finalizar Pedido y Pago</h2>
+            <p style="text-align:center; font-weight:bold;">Total a Pagar: $<span id="total-modal-pago">0.00</span></p>
+
+            <form id="form-pago">
+                <!-- Sección 1: Datos del Cliente -->
+                <h3>1. Datos de Entrega / Contacto</h3>
+                <div class="form-grupo">
+                    <label>Nombre Completo:</label>
+                    <input type="text" id="cliente-nombre" name="cliente_nombre" placeholder="Ej: Juan Pérez" required>
+                </div>
+                <div class="form-grupo">
+                    <label>Teléfono Celular:</label>
+                    <input type="tel" id="cliente-telefono" name="cliente_telefono" placeholder="Ej: 5512345678" pattern="[0-9]{10}" title="Debe contener 10 dígitos" required>
+                </div>
+                <div class="form-grupo">
+                    <label>Dirección Completa de Entrega:</label>
+                    <textarea id="cliente-direccion" name="cliente_direccion" placeholder="Calle, Número, Colonia, CP..." required></textarea>
+                </div>
+
+                <hr style="border: 1px solid #ccc; margin: 20px 0;">
+
+                <!-- Sección 2: Pago con Tarjeta (Simulado) -->
+                <h3>2. Pago con Tarjeta (Simulado)</h3>
+                <div class="form-grupo">
+                    <label>Nombre en la Tarjeta:</label>
+                    <input type="text" id="tarjeta-nombre" name="tarjeta_nombre" placeholder="Ej: Juan P Pérez" required>
+                </div>
+                <div class="form-grupo">
+                    <label>Número de Tarjeta:</label>
+                    <input type="text" id="tarjeta-numero" name="tarjeta_numero" placeholder="Ej: 1234567891011121" pattern="[0-9]{16}" title="Debe contener 16 dígitos" required>
+                </div>
+
+                <div class="row-pago">
+                    <div class="form-grupo form-grupo-pago">
+                        <label>Vencimiento (MM/AA):</label>
+                        <input type="text" id="tarjeta-vence" name="tarjeta_vence" placeholder="Ej: 12/25" pattern="(0[1-9]|1[0-2])/[0-9]{2}" title="Formato MM/AA, por ejemplo 12/25" required>
+                    </div>
+                    <div class="form-grupo form-grupo-pago">
+                        <label>CVV:</label>
+                        <input type="password" id="tarjeta-cvv" name="tarjeta_cvv" placeholder="123" pattern="[0-9]{3}" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-finalizar">PAGAR AHORA</button>
+            </form>
+
+            <div id="pago-status">Procesando...</div>
+        </div>
+    </div>
+
+<!-- --- MODAL 2: CONFIRMACIÓN Y TICKET IMPRIMIBLE --- -->
+<div id="modal-confirmacion" class="modal">
+    <div class="contenido-modal" style="max-width: 450px; text-align: center;">
+        <span class="cerrar-modal" onclick="cerrarModalConfirmacion()">&times;</span>
+        <div style="font-size: 50px; color: #28a745; margin-bottom: 15px;">✔</div>
+        <h2>¡Pago Exitoso!</h2>
+        <p>Tu pedido ha sido procesado correctamente.</p>
+        <p>A continuación se generará el ticket para impresión.</p>
+
+        <!-- AQUÍ se muestran los datos que regresa PHP -->
+        <div id="datos-recibidos" style="text-align:left; margin:15px 0; font-size:0.9em;"></div>
+
+        <button class="btn-finalizar" style="background-color: #007bff;" onclick="imprimirTicket()">GENERAR TICKET IMPRIMIBLE</button>
+    </div>
+</div>
+
+    <!-- Contenedor oculto en pantalla pero visible en impresión (controlado por CSS) -->
+    <div id="ticket-imprimible" style="display: none;">
+        <!-- Se llenará dinámicamente con JavaScript -->
+    </div>
+
+    <script src="../js/datos.js"></script>
+    <script src="../js/menu.js"></script>
+
+</body>
+</html>

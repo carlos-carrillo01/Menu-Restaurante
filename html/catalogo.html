@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurante El Inge - Catálogo de Platillos</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+    <header class="encabezado">
+        <div class="logo">
+            <h2><span>Restaurante El Inge</span></h2>
+        </div>
+        <nav class="menu">
+            <a href="index.html">Inicio</a>
+            <a href="catalogo.html" class="activo">Catálogo</a>
+            <a href="pedido.html">Hacer Pedido</a>
+        </nav>
+    </header>
+
+    <div class="contenedor">
+        <h1>Nuestro Delicioso Catálogo</h1>
+
+        <h2>Alimentos</h2>
+        <div id="grid-alimentos" class="grid-catalogo">
+            <!-- Se llenará con JavaScript -->
+        </div>
+
+        <div class="clear"></div> <!-- Limpiador -->
+
+        <h2>Bebidas</h2>
+        <div id="grid-bebidas" class="grid-catalogo">
+            <!-- Se llenará con JavaScript -->
+        </div>
+    </div>
+
+    
+    <script src="../js/datos.js"></script>
+    
+    <script>
+        
+        function llenarCatalogo() {
+            // Llenar Alimentos
+            var gridAlimentos = document.getElementById("grid-alimentos");
+            for (var i = 0; i < alimentos.length; i++) {
+                var item = alimentos[i];
+                gridAlimentos.innerHTML += '<div class="item-catalogo">' +
+                    '<img src="' + item.imagen + '" alt="' + item.nombre + '" class="img-catalogo">' +
+                    '<h3>' + item.nombre + '</h3>' +
+                    '<p>$' + item.precio + '</p>' +
+                '</div>';
+            }
+
+            // Llenar Bebidas
+            var gridBebidas = document.getElementById("grid-bebidas");
+            for (var j = 0; j < bebidas.length; j++) {
+                var itemBebida = bebidas[j];
+                gridBebidas.innerHTML += '<div class="item-catalogo">' +
+                    '<img src="' + itemBebida.imagen + '" alt="' + itemBebida.nombre + '" class="img-catalogo">' +
+                    '<h3>' + itemBebida.nombre + '</h3>' +
+                    '<p>$' + itemBebida.precio + '</p>' +
+                '</div>';
+            }
+        }
+
+        // Ejecutar la función al cargar la página
+        llenarCatalogo();
+    </script>
+</body>
+</html>
